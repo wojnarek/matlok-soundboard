@@ -1,0 +1,37 @@
+{
+  "generatedAt": "2026-03-06T22:50:04.373Z",
+  "sounds": [
+    {
+      "name": "Chcecie wojny",
+      "file": "../assets/Chcecie_wojny.mp3"
+    },
+    {
+      "name": "Grzechu adwokat",
+      "file": "../assets/Grzechu_adwokat.mp3"
+    },
+    {
+      "name": "Grzechu bedzie pil wiecej",
+      "file": "../assets/Grzechu_bedzie_pil_wiecej.mp3"
+    },
+    {
+      "name": "Hahaha hehehe",
+      "file": "../assets/Hahaha_hehehe.mp3"
+    },
+    {
+      "name": "Naprawiamy mlodych ludzi",
+      "file": "../assets/Naprawiamy_mlodych_ludzi.mp3"
+    },
+    {
+      "name": "Ochroniarz ma cierpiec",
+      "file": "../assets/Ochroniarz_ma_cierpiec.mp3"
+    },
+    {
+      "name": "Poczuj smrod",
+      "file": "../assets/Poczuj_smrod.mp3"
+    },
+    {
+      "name": "Polapane sady",
+      "file": "../assets/Polapane_sady.mp3"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+﻿:root {
+  font-family: Segoe UI, Tahoma, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #eceef3;
+}
+
+.app {
+  max-width: 1400px;
+  margin: 18px auto;
+  padding: 12px;
+}
+
+.pads {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 14px;
+}
+
+.pad {
+  position: relative;
+  width: 100%;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  display: block;
+  line-height: 0;
+  transition: transform 0.12s ease, filter 0.12s ease;
+}
+
+.pad-bg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pad-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  color: #0f4d2d;
+  font-size: clamp(1.12rem, 1.8vw, 1.74rem);
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.2;
+  max-width: 82%;
+  word-break: break-word;
+  transform: translate(-50%, -40%) rotate(-13deg);
+}
+
+.pad:hover {
+  transform: scale(0.985);
+  filter: brightness(1.05);
+}
+
+.pad:active {
+  transform: scale(0.965);
+  filter: brightness(0.97);
+}
+
+@media (max-width: 640px) {
+  .pads {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .pad-label {
+    max-width: 90%;
+  }
+}
