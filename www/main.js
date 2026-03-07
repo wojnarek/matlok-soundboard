@@ -1,6 +1,7 @@
 ﻿const padsEl = document.getElementById("pads");
 const volumeEl = document.getElementById("volume");
 const volumeValueEl = document.getElementById("volumeValue");
+const volumeBeerEl = document.getElementById("volumeBeer");
 
 let volumePercent = 100;
 let audioCtx;
@@ -26,6 +27,9 @@ function paintSlider() {
   const max = Number(volumeEl.max || 100);
   const pct = ((volumePercent - min) * 100) / Math.max(1, max - min);
   volumeEl.style.setProperty("--fill", `${pct}%`);
+  if (volumeBeerEl) {
+    volumeBeerEl.style.left = `calc(${pct}% - 14px)`;
+  }
 }
 
 function ensureAudioChain() {
