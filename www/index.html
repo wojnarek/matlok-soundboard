@@ -3,17 +3,21 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <base href="/www/" />
     <title>Soundboard</title>
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <main class="app">
+      <h1 class="title">Zaaplikowane wariaty</h1>
+      <section class="volume-wrap" aria-label="Sterowanie glosnoscia">
+        <input id="volume" class="volume" type="range" min="0" max="1000" value="100" step="1" />
+        <span id="volumeValue" class="volume-value">100</span>
+      </section>
+
       <section id="pads" class="pads"></section>
     </main>
 
-    <script type="module">
-      import init from "./pkg/matlok_soundboard.js";
-      init();
-    </script>
+    <script type="module" src="./main.js"></script>
   </body>
 </html>

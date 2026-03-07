@@ -1,44 +1,53 @@
-﻿# Soundboard (Rust + WebAssembly)
+﻿# Soundboard (JS-only, ready for wykr.es)
 
-Aplikacja soundboard z interfejsem renderowanym i obslugiwanym przez Rust/WASM.
-Przyciski sa generowane dynamicznie na podstawie plikow audio w `assets/`.
+Lekka wersja soundboardu w czystym JavaScript (bez WASM), kompatybilna z proxy wykr.es.
+Wyglad i funkcjonalnosc zostaly zachowane.
 
-## Architektura
+## Struktura
 
-- `src/lib.rs` - logika aplikacji (fetch manifestu, render kafelkow, odtwarzanie audio)
-- `scripts/generate-assets-manifest.mjs` - generuje `www/assets-manifest.json` z folderu `assets/`
-- `www/index.html` - minimalny bootstrap WASM
-- `www/style.css` - wyglad kafelkow
-- `scripts/build.cmd` / `scripts/build.ps1` - build manifest + WASM
-- `scripts/serve.cmd` / `scripts/serve.ps1` - lokalny serwer na porcie `8080`
+- `www/index.html` - glowny widok aplikacji
+- `www/main.js` - logika UI i odtwarzania dzwiekow
+- `www/style.css` - style kafelkow
+- `www/assets-manifest.json` - lista plikow audio generowana automatycznie
+- `assets/` - pliki audio + `etykieta.png`
+- `scripts/generate-assets-manifest.mjs` - generator manifestu
+- `scripts/build.cmd` / `scripts/build.ps1` - odswiezenie manifestu
+- `scripts/serve.cmd` / `scripts/serve.ps1` - lokalny serwer testowy
 
 ## Wymagania
 
-1. Rust + rustup
-2. Target WASM:
-   - `rustup target add wasm32-unknown-unknown`
-3. wasm-pack:
-   - `cargo install wasm-pack`
-4. Node.js
+- Node.js
 
-## Build
+## Praca lokalna
+
+1. Odswiez manifest audio:
 
 ```bat
 scripts\build.cmd
 ```
 
-## Start
+2. Uruchom lokalnie:
 
 ```bat
 scripts\serve.cmd
 ```
 
-Aplikacja otwiera sie pod:
+3. Otworz:
 
 - http://localhost:8080/www/index.html
 
-## Assets
+## Jak dodawac nowe dzwieki
 
-- Dzwieki: pliki `.mp3/.wav/.ogg/.m4a/.flac/.aac` w `assets/`
-- Tlo kafelka: `assets/etykieta.png`
-- Nazwa na kafelku pochodzi z nazwy pliku audio (bez rozszerzenia; `_`/`-` zamieniane na spacje)
+1. Wrzuc pliki audio do `assets/`
+2. Uruchom `scripts\build.cmd`
+3. Commituj zmiany (w tym `www/assets-manifest.json`)
+
+## Deploy przez Git (prosto pod VPS)
+
+Na serwerze po `git pull` nie musisz budowac WASM.
+Wystarczy miec aktualne pliki z repo i zrestartowac nginx.
+
+Przy aktualizacji dzwiekow zawsze commituj:
+
+- nowe pliki z `assets/`
+- `www/assets-manifest.json`
