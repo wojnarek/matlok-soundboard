@@ -15,16 +15,20 @@ body {
   max-width: 1400px;
   margin: 8px auto 18px;
   padding: 8px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title {
   margin: 0 0 10px;
   text-align: center;
   font-family: Impact, Haettenschweiler, "Arial Black", sans-serif;
-  font-size: clamp(1.8rem, 3.8vw, 3.2rem);
-  letter-spacing: 0.06em;
+  font-size: clamp(2rem, 4.6vw, 3.6rem);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #1a1a1a;
+  color: #171717;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .volume-wrap {
@@ -33,12 +37,12 @@ body {
   justify-content: center;
   gap: 12px;
   margin: 0 auto 16px;
-  width: fit-content;
+  width: 100%;
 }
 
 .volume {
   --fill: 10%;
-  width: min(420px, 75vw);
+  width: min(560px, 86vw);
   height: 14px;
   border-radius: 999px;
   appearance: none;
@@ -55,9 +59,9 @@ body {
 
 .volume::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 32px;
-  height: 32px;
-  margin-top: -9px;
+  width: 38px;
+  height: 38px;
+  margin-top: -12px;
   border: 0;
   border-radius: 50%;
   cursor: pointer;
@@ -65,7 +69,7 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' dominant-baseline='middle' font-size='30'%3E%F0%9F%8D%BA%3C/text%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' dominant-baseline='middle' font-size='34'%3E%F0%9F%8D%BA%3C/text%3E%3C/svg%3E");
 }
 
 .volume::-moz-range-track {
@@ -82,8 +86,8 @@ body {
 }
 
 .volume::-moz-range-thumb {
-  width: 32px;
-  height: 32px;
+  width: 38px;
+  height: 38px;
   border: 0;
   border-radius: 50%;
   cursor: pointer;
@@ -91,16 +95,18 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' dominant-baseline='middle' font-size='30'%3E%F0%9F%8D%BA%3C/text%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' dominant-baseline='middle' font-size='34'%3E%F0%9F%8D%BA%3C/text%3E%3C/svg%3E");
 }
 
 .volume-value {
   min-width: 44px;
-  font-weight: 700;
+  font-weight: 800;
   text-align: right;
+  font-size: 1.05rem;
 }
 
 .pads {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 14px;
@@ -158,6 +164,10 @@ body {
     padding-top: 6px;
   }
 
+  .title {
+    font-size: clamp(1.55rem, 8vw, 2.25rem);
+  }
+
   .pads {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
@@ -168,6 +178,6 @@ body {
   }
 
   .volume {
-    width: min(300px, 66vw);
+    width: min(360px, 70vw);
   }
 }
