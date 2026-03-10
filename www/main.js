@@ -7,6 +7,90 @@ let volumePercent = 100;
 let audioCtx;
 let masterGain;
 let distortion;
+let labelImageDataUrl = null;
+
+function escapeXml(value) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
+}
+
+function wrapLabel(text) {
+  const words = text.trim().split(/\s+/);
+  const lines = [];
+  let current = "";
+  const maxLength = 14;
+
+  words.forEach((word) => {
+    const candidate = current ? `${current} ${word}` : word;
+    if (candidate.length <= maxLength || current.length === 0) {
+      current = candidate;
+      return;
+    }
+
+    lines.push(current);
+    current = word;
+  });
+
+  if (current) {
+    lines.push(current);
+  }
+
+  if (lines.length > 3) {
+    return [...lines.slice(0, 2), lines.slice(2).join(" ")];
+  }
+
+  return lines;
+}
+
+function createPadSvg(label) {
+  const lines = wrapLabel(label).map(escapeXml);
+  const centerX = 230.5;
+  const centerY = 318;
+  const fontSize = lines.length >= 3 ? 31 : label.length > 18 ? 34 : 38;
+  const lineHeight = fontSize * 1.05;
+  const startY = centerY - ((lines.length - 1) * lineHeight) / 2;
+  const tspans = lines
+    .map(
+      (line, index) =>
+        `<tspan x="${centerX}" y="${(startY + index * lineHeight).toFixed(1)}">${line}</tspan>`,
+    )
+    .join("");
+
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 461 542" width="461" height="542">
+    <image href="${labelImageDataUrl}" width="461" height="542" preserveAspectRatio="xMidYMid meet" />
+    <text
+      x="${centerX}"
+      y="${centerY}"
+      fill="#0f4d2d"
+      font-family="Randolph, Impact, 'Arial Black', sans-serif"
+      font-size="${fontSize}"
+      font-weight="700"
+      text-anchor="middle"
+      transform="rotate(-13 ${centerX} ${centerY})"
+    >${tspans}</text>
+  </svg>`;
+
+  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+}
+
+async function loadLabelImage() {
+  const response = await fetch("/assets/etykieta.png", { cache: "no-store" });
+  if (!response.ok) {
+    throw new Error(`Nie mozna wczytac etykiety: ${response.status}`);
+  }
+
+  const blob = await response.blob();
+  labelImageDataUrl = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(new Error("Nie mozna odczytac etykiety"));
+    reader.readAsDataURL(blob);
+  });
+}
 
 function distortionCurve(amount) {
   const samples = 44100;
@@ -78,16 +162,11 @@ function createPad(item) {
 
   const bg = document.createElement("img");
   bg.className = "pad-bg";
-  bg.src = "/assets/etykieta.png";
-  bg.alt = "";
+  bg.src = createPadSvg(item.name);
+  bg.alt = item.name;
   bg.loading = "eager";
   bg.decoding = "async";
   btn.appendChild(bg);
-
-  const label = document.createElement("span");
-  label.className = "pad-label";
-  label.textContent = item.name;
-  btn.appendChild(label);
 
   btn.addEventListener("click", async () => {
     ensureAudioChain();
@@ -138,6 +217,7 @@ async function main() {
     }
   });
 
+  await loadLabelImage();
   const sounds = await loadSounds();
 
   padsEl.innerHTML = "";

@@ -2,6 +2,11 @@
   font-family: Segoe UI, Tahoma, sans-serif;
 }
 
+@font-face {
+  font-family: "Randolph";
+  src: local("Randolph");
+}
+
 * {
   box-sizing: border-box;
 }
@@ -23,7 +28,7 @@ body {
 .title {
   margin: 0 0 10px;
   text-align: center;
-  font-family: Impact, Haettenschweiler, "Arial Black", sans-serif;
+  font-family: "Randolph", Impact, Haettenschweiler, "Arial Black", sans-serif;
   font-size: clamp(2rem, 4.6vw, 3.6rem);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -144,20 +149,6 @@ body {
   height: auto;
 }
 
-.pad-label {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  color: #0f4d2d;
-  font-size: clamp(1.12rem, 1.8vw, 1.74rem);
-  font-weight: 700;
-  text-align: center;
-  line-height: 1.2;
-  max-width: 82%;
-  word-break: break-word;
-  transform: translate(-50%, -40%) rotate(-13deg);
-}
-
 .pad:hover {
   transform: scale(0.985);
   filter: brightness(1.05);
@@ -181,10 +172,6 @@ body {
   .pads {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
-  }
-
-  .pad-label {
-    max-width: 90%;
   }
 
   .volume-shell {
